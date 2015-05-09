@@ -1,0 +1,12 @@
+[ 
+{ 
+"name":"test1", 
+"sex":"man", 
+"home":"cq" 
+}, 
+{ 
+"name":"lucy", 
+"sex":"woman", 
+"home":"beijing" 
+} 
+]
