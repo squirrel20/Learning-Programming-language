@@ -7,10 +7,12 @@
 
 #include "targetver.h"
 #include "虚函数.h"
+#include "运算符重载.h"
 
 #include <stdio.h>
-#include <tchar.h>
+#include <string>
 
-
+// 格式化输出信息
+void PutPre(std::string info);
 
 // TODO:  在此处引用程序需要的其他头文件
