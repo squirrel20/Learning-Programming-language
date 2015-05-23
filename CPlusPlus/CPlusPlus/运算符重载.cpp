@@ -12,7 +12,9 @@ istream &operator>>(istream &in, OperatorTest& ot)
 {
 	int i;
 	in >> i;
-	ot.SetId(i);
+	// 输入运算符必须处理输入可能失败的情况，而输出运算符不需要
+	if (in)
+		ot.SetId(i);
 	return in;
 }
 
