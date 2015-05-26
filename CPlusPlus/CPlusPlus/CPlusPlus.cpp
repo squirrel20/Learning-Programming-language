@@ -3,10 +3,13 @@
 
 #include "stdafx.h"
 
+extern void duiqi();
+
 int main(int argc, char* argv[])
 {
-	TestOperator();
+	//TestOperator();
 
+	duiqi();
 	return 0;
 }
 

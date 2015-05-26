@@ -88,6 +88,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="内存对齐.cpp" />
     <ClCompile Include="虚函数.cpp" />
     <ClCompile Include="运算符重载.cpp" />
   </ItemGroup>
