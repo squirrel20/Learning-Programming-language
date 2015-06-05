@@ -30,12 +30,12 @@
     <ClInclude Include="运算符重载.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Decryption.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlusPlus.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="虚函数.cpp">
@@ -47,5 +47,14 @@
     <ClCompile Include="内存对齐.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Decryption.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

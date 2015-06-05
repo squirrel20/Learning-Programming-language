@@ -9,7 +9,11 @@ int main(int argc, char* argv[])
 {
 	//TestOperator();
 
-	duiqi();
+	//duiqi();
+
+	//testEncyption();
+	testReversal();
+
 	return 0;
 }
 

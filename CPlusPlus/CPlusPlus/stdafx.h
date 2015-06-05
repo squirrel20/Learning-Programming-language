@@ -8,6 +8,7 @@
 #include "targetver.h"
 #include "Ðéº¯Êý.h"
 #include "ÔËËã·ûÖØÔØ.h"
+#include "Decryption.h"
 
 #include <stdio.h>
 #include <string>
