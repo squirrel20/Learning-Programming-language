@@ -84,6 +84,7 @@
     <ClInclude Include="运算符重载.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Encryption.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Decryption.cpp" />
     <ClCompile Include="stdafx.cpp">

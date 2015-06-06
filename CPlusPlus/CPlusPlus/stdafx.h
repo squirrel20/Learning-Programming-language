@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <string>
 
+
 // 格式化输出信息
 void PutPre(std::string info);
 
