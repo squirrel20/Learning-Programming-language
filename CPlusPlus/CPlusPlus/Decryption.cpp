@@ -17,7 +17,7 @@
 
 #define TEST_REVERSAL 0
 #define TEST_MUL_32 0
-#define TEST_MUL_256_ADD 0
+#define TEST_MUL_256_ADD 0 
 #define TEST_ENCRYPTION 0
 
 
@@ -150,8 +150,9 @@ e31e30e29e28e27e26e25e24e23e22e21e20e19e18e17e16 = R1  为输出结果
 
 */
 {
+	static int num = 1;
 #if TEST_MUL_256_ADD
-	printf("before mul 256 add :\n");
+	printf("before mul 256 add : %d\n", num++);
 	printf("R0=\t0x%04X\n", R0);
 	print(R1, "R1=");
 	print(R2, "R2=");
@@ -489,7 +490,7 @@ void testEncyption( void )
 	//qiufan((u32*)dword_1);
 	//qiufan((u32*)dword_2);
 
-	Encryption2(buf1,buf2,buf3);
+	Encryption(buf1,buf2,buf3);
 	//Encryption(result,buf2,buf3);
 
 	for (i=0;i<4; i+= 2){
@@ -624,9 +625,16 @@ void test_mul_256_add()
 
 	u32 R2[4] = { 0x53AE1F00, 0xE2B8C077, 0xAE45E44B, 0xB817A9B3 };
 	u32 R3[4] = { 0x10000000, 0, 0, 0 };
-	for (int i = 0; i < 128; i++)
+	print(R2);
+	for (int i = 0; i < 127; i++)
 	{
+		mul_256_add(R0, R1, R2, R2);
+		R2[0] = R1[0];
+		R2[1] = R1[1];
+		R2[2] = R1[2];
+		R2[3] = R1[3];
 	}
+	print(R2);
 
 }
 

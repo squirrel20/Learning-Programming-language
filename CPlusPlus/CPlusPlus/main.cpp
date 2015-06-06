@@ -14,8 +14,8 @@ int main(int argc, char* argv[])
 	//duiqi();
 
 	//test_mul_256_add();
-	//test_mul_256_add();
-	testEncyption();
+	test_mul_256_add();
+	//testEncyption();
 	//testReversal();
 	//test_mul_32();
 	//int i = 1;
