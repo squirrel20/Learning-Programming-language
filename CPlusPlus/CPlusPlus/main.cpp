@@ -3,41 +3,73 @@
 
 #include "stdafx.h"
 
-extern void duiqi();
-extern void testDe();
-extern void test();
 
-void arr(int* p)
+const int BLOCK = 20;
+
+typedef struct {
+	int *array;
+	int size;
+}Array;
+
+Array array_create(int init_size)
 {
-	for (int i = 0; i < 2; i++)
-		for (int j = 0; j < 2; j++)
-		*p++ = 100;
+	Array a;
+	a.size = init_size;
+	a.array = (int*)malloc(sizeof(int)*a.size);//分配内存
+	return a;
 }
 
-int main(int argc, char* argv[])
+void array_free(Array*a)
 {
-	int a[2][2] = { 1,2,3,4 };
-	arr(a[0]);
-	cout << a[1][1] << endl;
-	//TestOperator();
+	free(a->array);//释放内存
 
-	//duiqi();
-
-	//test_mul_256_add();
-	//test_mul_256_add();
-	//testEncyption();
-	//testReversal();
-	//test_mul_32();
-	//int i = 1;
-	//i = ~i;
-	//cout << i << endl;
-
-	//test();
-	//testDe();
-
-	/*int a = 0x00000001;
-	a = ~a;
-	printf("0x%04X\n", a);
-*/
+	a->array = 0;
+	a->size = 0;
 }
 
+//封装
+int array_size(const Array*a)
+{
+	return a->size;
+}
+
+void array_inflate(Array*a, int more_size)
+{
+	int *p = (int*)malloc(sizeof(int)*(a->size + more_size));
+	int i;
+	for (i = 0; i < a->size; i++) {
+		p[i] = a->array[i];
+	}
+	free(a->array);
+	a->array = p;
+	a->size += more_size;
+}
+
+int *array_at(Array *a, int index)
+{
+	if (index >= a->size) {
+		array_inflate(a, (index / BLOCK + 1)*BLOCK - a->size);
+	}
+	return &(a->array[index]);
+}
+
+int main(void)
+{
+
+	Array a = array_create(100);
+	printf("%d\n", array_size(&a));
+	*array_at(&a, 0) = 10;
+	printf("%d\n", *array_at(&a, 0));
+
+	int number = 0;
+	int cnt = 0;
+	while (number != -1) {
+		scanf("%d", &number);
+		if (number != -1) {
+			*array_at(&a, cnt++) = number;
+		}
+	}
+
+	array_free(&a);
+	return 0;
+}
