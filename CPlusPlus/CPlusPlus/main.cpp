@@ -7,14 +7,24 @@ extern void duiqi();
 extern void testDe();
 extern void test();
 
+void arr(int* p)
+{
+	for (int i = 0; i < 2; i++)
+		for (int j = 0; j < 2; j++)
+		*p++ = 100;
+}
+
 int main(int argc, char* argv[])
 {
+	int a[2][2] = { 1,2,3,4 };
+	arr(a[0]);
+	cout << a[1][1] << endl;
 	//TestOperator();
 
 	//duiqi();
 
 	//test_mul_256_add();
-	test_mul_256_add();
+	//test_mul_256_add();
 	//testEncyption();
 	//testReversal();
 	//test_mul_32();
