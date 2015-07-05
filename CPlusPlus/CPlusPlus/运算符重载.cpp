@@ -1,5 +1,14 @@
 #include "stdafx.h"
 
+// 赋值运算符必须定义为成员函数。
+// 如果一个运算符是一个成员函数，其左侧运算对象就绑定到隐式的this参数，其右侧运算对象作为显示参数传递。
+// 赋值运算符通常应该返回一个指向其左侧运算对象的引用。
+OperatorTest& OperatorTest::operator=(const OperatorTest& right)
+{
+	id = right.GetId();
+	return *this;
+}
+
 // 对于二元运算符（<<）来说，左侧运算对象传递给第一个参数，右侧运算对象传递给第二个参数
 // cout << ot; 这里cout就传递给os，ot传递给ot
 ostream &operator<<(ostream &os, const OperatorTest &ot)
@@ -26,6 +35,7 @@ istream &operator>>(istream &in, OperatorTest& ot)
 //	return os;
 //}
 
+// 运算符重载测试
 void TestOperator()
 {
 	PutPre("运算符重载测试");
@@ -36,4 +46,14 @@ void TestOperator()
 	cout << ot << endl;
 	string s = "hi";
 	cout << s << endl;
+}
+
+// 拷贝赋值运算符测试
+void TestCopy()
+{
+	PutPre("拷贝赋值运算符测试");
+	OperatorTest a(1);
+	OperatorTest b(2);
+	a = b;
+	cout << a << endl;
 }
