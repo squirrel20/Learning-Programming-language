@@ -15,6 +15,19 @@ Leetcode的练习代码
 
 using namespace std;
 
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode(int x) : val(x), next(NULL) {}
+};
+
 int atoi(const char *str)
 {
 	int len = strlen(str);
@@ -99,12 +112,6 @@ string longestCommonPrefix(vector<string> &strs)
 	return ret;
 }
 
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
 
 bool hasPathSum(TreeNode *root, int sum)
 {
@@ -254,7 +261,7 @@ int removeDuplicates(int A[], int n)
 	return index + 1;
 }
 
-int removeDuplicates()
+void removeDuplicates()
 {
 	int A[] = { 1, 1, 2 };
 
@@ -277,7 +284,7 @@ int removeDuplicates2(int A[], int n)
 	return index + 1;
 }
 
-int removeDuplicates2()
+void removeDuplicates2()
 {
 	int A[] = { 1, 1, 1, 2, 2, 3 };
 
@@ -755,11 +762,6 @@ void merge()
 	cout << '\n';
 }
 
-struct ListNode {
-	int val;
-	ListNode *next;
-	ListNode(int x) : val(x), next(NULL) {}
-};
 
 ListNode *removeNthFromEnd(ListNode *head, int n)
 {
@@ -857,10 +859,53 @@ void rabinKarpMather()
 	rabinKarpMather(T, P, 10, 3793171);
 }
 
+ListNode* reverseList(ListNode* head) 
+{
+	// 反转单链
+	if (NULL == head || NULL == head->next) return head;
+	if (NULL == head->next->next)
+	{
+		ListNode *p = head->next;
+		head->next->next = head;
+		head->next = NULL;
+		return p;
+	}
+
+	ListNode *left = head;
+	ListNode *mid = head->next;
+	ListNode *right = head->next->next;
+	while (NULL != right)
+	{
+		mid->next = left;
+		left = mid;
+		mid = right;
+		right = right->next;
+	}
+	mid->next = left;
+	head->next = NULL;
+	return mid;
+}
+
+void reverseList()
+{
+	ListNode a(1);
+	ListNode b(2);
+	ListNode c(3);
+	a.next = &b;
+	b.next = &c;
+
+	ListNode *p = reverseList(&a);
+	while (NULL != p)
+	{
+		cout << p->val << endl;
+		p = p->next;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	cout << "----------start------------" << endl;
-	rabinKarpMather();
+	reverseList();
 	cout << "----------done------------" << endl;
 	return 0;
 }
