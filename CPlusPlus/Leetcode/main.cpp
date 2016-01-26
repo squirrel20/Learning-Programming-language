@@ -28,7 +28,7 @@ struct ListNode {
 	ListNode(int x) : val(x), next(NULL) {}
 };
 
-int atoi(const char *str)
+int atoi_(const char *str)
 {
 	int len = strlen(str);
 	long long out = 0;
@@ -55,11 +55,11 @@ int atoi(const char *str)
 	return out;
 }
 
-void atoi()
+void atoi_()
 {
-	cout << atoi("2147483648") << endl;
-	cout << atoi("aaa 1234aa ") << endl;
-	cout << atoi("------------123") << endl;
+	cout << atoi_("2147483648") << endl;
+	cout << atoi_("aaa 1234aa ") << endl;
+	cout << atoi_("------------123") << endl;
 }
 
 int romanToInt(string s)
@@ -902,10 +902,126 @@ void reverseList()
 	}
 }
 
+ListNode* oddEvenList(ListNode* head) {
+	if (NULL == head || NULL == head->next) return head;
+
+	ListNode *odd = head;
+	ListNode *oddNext = odd;
+	head = head->next;
+	ListNode *even = head;
+	ListNode *evenNext = even;
+	head = head->next;
+	int i = 1;
+	while (NULL != head)
+	{
+		if (i % 2)
+		{
+			oddNext->next = head;
+			oddNext = oddNext->next;
+		}
+		else
+		{
+			evenNext->next = head;
+			evenNext = evenNext->next;
+		}
+
+		i++;
+		head = head->next;
+	}
+
+	evenNext->next = NULL;
+	oddNext->next = even;
+
+	return odd;
+}
+
+void oddEvenList()
+{
+	ListNode a(1);
+	ListNode b(2);
+	ListNode c(3);
+	a.next = &b;
+	b.next = &c;
+
+	ListNode *p = oddEvenList(&a);
+	while (NULL != p)
+	{
+		cout << p->val << endl;
+		p = p->next;
+	}
+}
+
+bool isValidSudoku(vector<vector<char>> &board)
+{
+	if (9 > board.size()) return false;
+	if (9 > board[0].size()) return false;
+
+	int row[9][9] = { 0 };
+	int col[9][9] = { 0 };
+	int box[9][9] = { 0 };
+
+	// 判断一个f[x,y]所在位置的数字是否合法
+	// 1. 所在行是否有相同数字
+	// 2. 所在列是否有相同数字
+	// 3. 所在小9宫格是否有相同数字，小9宫格其实可以用一个元素来表示，一共9个小9宫格
+	for (int i = 0; i < 9; i++)
+		for (int j = 0; j < 9; j++)
+		{
+			if ('.' == board[i][j])
+				continue;
+			int tmp = board[i][j] - '1';
+			if (row[i][tmp]) return false;
+			if (col[j][tmp]) return false;
+			int pos = (i / 3) * 3 + j / 3;
+			if (box[pos][tmp]) return false;
+
+			row[i][tmp] = 1;
+			col[j][tmp] = 1;
+			box[pos][tmp] = 1;
+		}
+
+	return true;
+}
+
+void isValidSudoku()
+{
+	// [".87654321","2........","3........","4........","5........","6........","7........","8........","9........"]
+	vector<vector<char>> board;
+	char arr1[] = ".87654321"; 
+	char arr2[] = "2........";
+	char arr3[] = "3........";
+	char arr4[] = "4........";
+	char arr5[] = "5........";
+	char arr6[] = "6........";
+	char arr7[] = "7........";
+	char arr8[] = "8........";
+	char arr9[] = "9........";
+	vector<char> b1(arr1, arr1 + sizeof(arr1));
+	vector<char> b2(arr2, arr2 + sizeof(arr2));
+	vector<char> b3(arr3, arr3 + sizeof(arr3));
+	vector<char> b4(arr4, arr4 + sizeof(arr4));
+	vector<char> b5(arr5, arr5 + sizeof(arr5));
+	vector<char> b6(arr6, arr6 + sizeof(arr6));
+	vector<char> b7(arr7, arr7 + sizeof(arr7));
+	vector<char> b8(arr8, arr8 + sizeof(arr8));
+	vector<char> b9(arr9, arr9 + sizeof(arr9));
+	board.push_back(b1);
+	board.push_back(b2);
+	board.push_back(b3);
+	board.push_back(b4);
+	board.push_back(b5);
+	board.push_back(b6);
+	board.push_back(b7);
+	board.push_back(b8);
+	board.push_back(b9);
+
+	cout << isValidSudoku(board) << endl;
+}
+
 int main(int argc, char **argv)
 {
 	cout << "----------start------------" << endl;
-	reverseList();
+	isValidSudoku();
 	cout << "----------done------------" << endl;
 	return 0;
 }
