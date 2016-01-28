@@ -1018,10 +1018,33 @@ void isValidSudoku()
 	cout << isValidSudoku(board) << endl;
 }
 
+bool isIsomorphic(string s, string t) {
+	if (s.size() != t.size()) return false;
+	int arr[255];
+	for (unsigned int i = 0; i < 255; i++)
+		arr[i] = 256;
+	for (unsigned int i = 0; i < s.size(); i++)
+	{
+		int tmp = t[i] - s[i];
+		if (256 == arr[s[i]])
+			arr[s[i]] = tmp;
+		else if (arr[s[i]] != tmp)
+			return false;
+	}
+	return true;
+}
+
+void isIsomorphic()
+{
+	cout << isIsomorphic("aa", "ab") << endl;
+	cout << isIsomorphic("ab", "aa") << endl;
+}
+
 int main(int argc, char **argv)
 {
 	cout << "----------start------------" << endl;
-	isValidSudoku();
+	map<int, int> m;
+	cout << m[1] << endl;
 	cout << "----------done------------" << endl;
 	return 0;
 }
