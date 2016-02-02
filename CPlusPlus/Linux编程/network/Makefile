@@ -10,3 +10,6 @@ echo:
 
 echoclean:
 	rm echo
+
+select:
+	g++ -g select.cpp

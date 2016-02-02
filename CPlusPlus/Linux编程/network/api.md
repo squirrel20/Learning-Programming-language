@@ -183,4 +183,25 @@ int shutdown(int sockfd, int how);
 //  SHUT_WR 不允许再传送数据
 //  SHUT_RDWR 不允许再传送与接收数据，等同于close()
 ```
+## 2.9 select()
 
+```
+#include <sys/time.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+// timeout: 如果时间超时了，而select()还没有找到任何就绪的file descriptor时，
+//          它会回传，让你可以继续做其他事情。也就是说在这之前select是阻塞的
+int select(int numfds, fd_set *readfds, fd_set *writefds,
+            fd_set *exceptfds, struct timeval *timeout);
+
+struct timeval {
+    int tv_sec;     // second
+    int tv_usec;    // microseconds
+};
+
+FD_SET(int fd, fd_set *set);        // 将fd添加到set
+FD_CLR(int fd, fd_set *set);        // 将fd从set移除
+FD_ISSET(int fd, fd_set *set);      // 若fd在set中，返回true
+FD_ZERO(fd_set *set);               // 将set清零
+```
