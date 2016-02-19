@@ -58,4 +58,16 @@ void f261_test();
 int int_shifts_are_logical();
 void int_shifts_are_logical_test();
 
+// 2.63
+int sra(int x, int k);
+unsigned srl(unsigned x, int k);
+void sra_test();
+
+// 2.64
+int any_even_one(unsigned x);
+void any_even_one_test();
+
+// 2.65
+int even_ones(unsigned x);
+void even_ones_test();
 #endif

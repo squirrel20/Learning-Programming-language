@@ -8,6 +8,9 @@ int main(int argc, char *argv)
     put_byte_test();
     f261_test();
     int_shifts_are_logical_test();
+    sra_test();
+    any_even_one_test();
+    even_ones_test();
 
     return 0;
 }
@@ -189,5 +192,79 @@ void int_shifts_are_logical_test()
 {
     BEGIN_TEST;
     printf("int_shifts_are_logical: %d\n", int_shifts_are_logical());
+    END_TEST;
+}
+
+int sra(int x, int k)
+{
+    int xsrl = (unsigned) x >> k;   // 逻辑右移
+
+    // 手动实现高位的算术补齐，就是用x的最高位来补齐
+    // 1. 获取x的最高位
+    // 2. 将x的最高位补齐在xsrl的高位
+
+    int shift = sizeof(unsigned) << 3;
+    int h = !!((1 << (shift - 1)) & x);  // 若最高有效位为1， h = 1, 否则 h = 0 
+
+    return xsrl | ((h << k) - h) << (shift - k - !h);
+}
+
+unsigned srl(unsigned x, int k)
+{
+    unsigned xsra = (int) x >> k;
+
+    // 将算术右移的高位全部置为0
+
+    // 使用逻辑非运算，可以把int型隐式转换为bool型
+    int shift = sizeof(unsigned) << 3;
+
+    int h = ((~0) << (shift - k)) ^ (~0); // 高位全为0， 低位为1
+
+    return xsra & h;
+}
+
+void sra_test()
+{
+    BEGIN_TEST;
+    printf("0x%xu >> %d = 0x%xu\n", 0xF0010203, 8, srl(0xF0010203, 8));
+    printf("0x%x >> %d = 0x%x\n",  0xF0010203, 8, sra(0xF0010203, 8));
+    END_TEST;
+}
+
+int any_even_one(unsigned x)
+{
+    return !!(x | 0);
+}
+
+void any_even_one_test()
+{
+    BEGIN_TEST;
+    printf("any_even_one(0) = %d\n", any_even_one(0));
+    printf("any_even_one(2) = %d\n", any_even_one(2));
+    END_TEST;
+}
+
+int even_ones(unsigned x)
+{
+    // x的二进制位有偶数个1，返回1，否则返回0
+    // 代码最多只能包含12个算术运算、位运算和逻辑运算
+    // 异或：1 ^ 1 = 0 一次异或消掉偶数个1
+    
+    x ^= x >> 16;
+    x ^= x >> 8;
+    x ^= x >> 4;
+    x ^= x >> 2;
+    x ^= x >> 1;
+
+    return !(x & 1);
+}
+
+void even_ones_test()
+{
+    unsigned i;
+    BEGIN_TEST;
+
+    for(i = 0xff; i < 0x10f; i++)
+        printf("even_ones(0x%x) = %d\n", i, even_ones(i));
     END_TEST;
 }
