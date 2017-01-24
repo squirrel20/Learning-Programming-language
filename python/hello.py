@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 # 第一行这个可以让py文件被执行
 # 以#开头到语句是注释
 
@@ -19,6 +19,7 @@ print('1 + 1 =', 1 + 1)
 #-------------------------------------------------------------------------------
 
 # input函数返回的是字符串
+print('next line input name :')
 name = input()
 print('hello', name)
 
@@ -123,7 +124,7 @@ if x == 'a':
 	pass
 elif x == 'b':
 	pass
-else
+else :
 	pass
 if x == 'a':
 	if x < a:
