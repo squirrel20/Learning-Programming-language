@@ -32,5 +32,8 @@ p	hello.py	/^p = 10 \/ 3  # 3.3333$/;"	kind:variable	line:77
 p	hello.py	/^p = 9 \/ 3   # 3.0$/;"	kind:variable	line:78
 q	hello.py	/^q = 10 \/\/ 3 # 3$/;"	kind:variable	line:79
 r	hello.py	/^r = 10 % 3  # 1$/;"	kind:variable	line:80
+random	random.py	/^import random$/;"	kind:namespace	line:1
+random.py	random.py	1;"	kind:file	line:1
 tips	hello.py	/^tips = input('please enter your name: ')$/;"	kind:variable	line:26
 x	hello.py	/^x = 1$/;"	kind:variable	line:114
+x	random.py	/^    x = random.randint(5,10)$/;"	kind:variable	line:4
