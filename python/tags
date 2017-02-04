@@ -4,36 +4,66 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-PI	hello.py	/^PI = 3.1415 # 通常用全部大写的变量表示常量，其实仍然可以改变PI的值$/;"	kind:variable	line:76
-a	hello.py	/^a = 'abc'   # a指向'abc'$/;"	kind:variable	line:72
-a	hello.py	/^a = 'abc'   # str字符串类型，在内存中以Unicode表示$/;"	kind:variable	line:97
-a	hello.py	/^a = 'xyz'   # a指向'xyz'，b依然指向'abc'$/;"	kind:variable	line:74
-a	hello.py	/^a = 1       # 动态语言，变量类型不固定$/;"	kind:variable	line:75
-a	hello.py	/^a = 1$/;"	kind:variable	line:38
-b	hello.py	/^b = -2$/;"	kind:variable	line:39
-b	hello.py	/^b = a       # b和a一样也指向'abc'$/;"	kind:variable	line:73
-b	hello.py	/^b = b'abc'  # 以字节为单位，用于网络传输、保存到磁盘$/;"	kind:variable	line:98
-c	hello.py	/^c = 0xff2$/;"	kind:variable	line:40
-d	hello.py	/^d = 1.23$/;"	kind:variable	line:43
-e	hello.py	/^e = -2.10$/;"	kind:variable	line:44
-f	hello.py	/^	f = float(a)$/;"	kind:variable	line:137
-f	hello.py	/^f = 1.23e9  # 1.23x10^9$/;"	kind:variable	line:45
-g	hello.py	/^g = 1.2e-5$/;"	kind:variable	line:46
-h	hello.py	/^h = 'hi'$/;"	kind:variable	line:49
+PI	hello.py	/^PI = 3.1415 # 通常用全部大写的变量表示常量，其实仍然可以改变PI的值$/;"	kind:variable	line:87
+a	hello.py	/^a = 'abc'   # a指向'abc'$/;"	kind:variable	line:83
+a	hello.py	/^a = 'abc'   # str字符串类型，在内存中以Unicode表示$/;"	kind:variable	line:109
+a	hello.py	/^a = 'xyz'   # a指向'xyz'，b依然指向'abc'$/;"	kind:variable	line:85
+a	hello.py	/^a = 1       # 动态语言，变量类型不固定$/;"	kind:variable	line:86
+a	hello.py	/^a = 1$/;"	kind:variable	line:49
+a	hello.py	/^a = [-1, 1, 22, 33, 44]$/;"	kind:variable	line:300
+a	hello.py	/^a = set('abcde')	# {'a', 'b', 'c', 'd', 'e'}$/;"	kind:variable	line:325
+args	hello.py	/^args = [3, 6]$/;"	kind:variable	line:270
+ask_ok	hello.py	/^def ask_ok(prompt, retries=4, complaint='Yes or no, please!'):$/;"	kind:function	line:234
+b	hello.py	/^b = -2$/;"	kind:variable	line:50
+b	hello.py	/^b = a       # b和a一样也指向'abc'$/;"	kind:variable	line:84
+b	hello.py	/^b = b'abc'  # 以字节为单位，用于网络传输、保存到磁盘$/;"	kind:variable	line:110
+b	hello.py	/^b = set('cdefg')	# {'c', 'd', 'e', 'f', 'g'}$/;"	kind:variable	line:326
+basket	hello.py	/^basket = {'apple', 'orange', 'apple', 'pear'}$/;"	kind:variable	line:319
+c	hello.py	/^c = 0xff2$/;"	kind:variable	line:51
+cheeseshop	hello.py	/^def cheeseshop(kind, *arguments, **keywords):$/;"	kind:function	line:254
+client	hello.py	/^		   client="John Cleese",$/;"	kind:variable	line:266
+d	hello.py	/^d = 1.23$/;"	kind:variable	line:54
+d	hello.py	/^d = {"voltage": "four", "state": "bleedin", "action": "aa"}$/;"	kind:variable	line:272
+e	hello.py	/^e = -2.10$/;"	kind:variable	line:55
+empty	hello.py	/^empty = ()	# 空元组$/;"	kind:variable	line:313
+empty	hello.py	/^empty = set()	# 空set$/;"	kind:variable	line:324
+empty	hello.py	/^empty = {}	# 空字典$/;"	kind:variable	line:336
+f	hello.py	/^	f = float(a)$/;"	kind:variable	line:166
+f	hello.py	/^f = 1.23e9  # 1.23x10^9$/;"	kind:variable	line:56
+f	hello.py	/^f = fib$/;"	kind:variable	line:230
+f	hello.py	/^f = make_incrementor(42)	# n = 42$/;"	kind:variable	line:282
+f2	hello.py	/^def f2(a, L=[]):$/;"	kind:function	line:238
+fib	hello.py	/^def fib(n):$/;"	kind:function	line:222
+g	hello.py	/^g = 1.2e-5$/;"	kind:variable	line:57
+h	hello.py	/^h = 'hi'$/;"	kind:variable	line:60
 hello.py	hello.py	1;"	kind:file	line:1
-i	hello.py	/^i = "yoyo"$/;"	kind:variable	line:50
-k	hello.py	/^k = True$/;"	kind:variable	line:57
-l	hello.py	/^l = False$/;"	kind:variable	line:58
-m	hello.py	/^m = 3 > 2$/;"	kind:variable	line:59
-n	hello.py	/^n = True and True # and, or, not$/;"	kind:variable	line:60
-name	hello.py	/^name = input()$/;"	kind:variable	line:23
-o	hello.py	/^o = None # None不能理解为0，因为0是有意义的，而None是一个特殊的空值$/;"	kind:variable	line:63
-p	hello.py	/^p = 10 \/ 3  # 3.3333$/;"	kind:variable	line:77
-p	hello.py	/^p = 9 \/ 3   # 3.0$/;"	kind:variable	line:78
-q	hello.py	/^q = 10 \/\/ 3 # 3$/;"	kind:variable	line:79
-r	hello.py	/^r = 10 % 3  # 1$/;"	kind:variable	line:80
+i	hello.py	/^i = "yoyo"$/;"	kind:variable	line:61
+k	hello.py	/^k = True$/;"	kind:variable	line:68
+l	hello.py	/^l = False$/;"	kind:variable	line:69
+m	hello.py	/^m = 3 > 2$/;"	kind:variable	line:70
+make_incrementor	hello.py	/^def make_incrementor(n):$/;"	kind:function	line:280
+my_function	hello.py	/^def my_function():$/;"	kind:function	line:289
+my_list	hello.py	/^my_list = squares$/;"	kind:variable	line:179
+n	hello.py	/^n = True and True # and, or, not$/;"	kind:variable	line:71
+name	hello.py	/^name = input()$/;"	kind:variable	line:34
+o	hello.py	/^o = None # None不能理解为0，因为0是有意义的，而None是一个特殊的空值$/;"	kind:variable	line:74
+p	hello.py	/^p = 10 \/ 3  # 3.3333$/;"	kind:variable	line:88
+p	hello.py	/^p = 9 \/ 3   # 3.0$/;"	kind:variable	line:89
+parrot	hello.py	/^def parrot(voltage, state='a stiff', action='voom'):$/;"	kind:function	line:246
+q	hello.py	/^q = 10 \/\/ 3 # 3$/;"	kind:variable	line:90
+r	hello.py	/^r = 10 % 3  # 1$/;"	kind:variable	line:91
 random	random.py	/^import random$/;"	kind:namespace	line:1
 random.py	random.py	1;"	kind:file	line:1
-tips	hello.py	/^tips = input('please enter your name: ')$/;"	kind:variable	line:26
-x	hello.py	/^x = 1$/;"	kind:variable	line:114
+s	hello.py	/^s = 2 ** 7	# 2^7 = 128$/;"	kind:variable	line:92
+shopkeeper	hello.py	/^		   shopkeeper="Michael",$/;"	kind:variable	line:265
+singleton	hello.py	/^singleton = 'hello',	# 单元组，后面跟一个逗号$/;"	kind:variable	line:314
+sketch	hello.py	/^		   sketch="Cheese Shop")$/;"	kind:variable	line:267
+squares	hello.py	/^squares = [1, 4, 9, 16, 25]$/;"	kind:variable	line:174
+squares	hello.py	/^squares = [x**2 for x in range(10)]$/;"	kind:variable	line:195
+t	hello.py	/^t = 12345, 54321, 'hello!'	# t[0] = 12345, t = (12345, 54321, 'hello!')$/;"	kind:variable	line:309
+tel	hello.py	/^tel = {'jack': 4098, 'sape': 4139}$/;"	kind:variable	line:337
+tips	hello.py	/^tips = input('please enter your name: ')$/;"	kind:variable	line:37
+word	hello.py	/^word = 'Python'$/;"	kind:variable	line:121
+words	hello.py	/^words = ['cat', 'window', 'defenestrate']$/;"	kind:variable	line:200
+x	hello.py	/^x = 1$/;"	kind:variable	line:143
 x	random.py	/^    x = random.randint(5,10)$/;"	kind:variable	line:4
