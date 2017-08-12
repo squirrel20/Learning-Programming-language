@@ -332,10 +332,10 @@ Disassembly of section .text:
 
 0000000000400ee7 <phase_1>:
   400ee7:	48 83 ec 08          	sub    $0x8,%rsp
-  400eeb:	be 18 1b 40 00       	mov    $0x401b18,%esi
+  400eeb:	be 18 1b 40 00       	mov    $0x401b18,%esi               ; 第二个请求参数，$0x401b18里面保存的字符串就是魔法字符串了
   400ef0:	e8 0e 04 00 00       	callq  401303 <strings_not_equal>
   400ef5:	85 c0                	test   %eax,%eax
-  400ef7:	74 05                	je     400efe <phase_1+0x17>
+  400ef7:	74 05                	je     400efe <phase_1+0x17>        ; %eax == 0, 正常返回
   400ef9:	e8 df 07 00 00       	callq  4016dd <explode_bomb>
   400efe:	48 83 c4 08          	add    $0x8,%rsp
   400f02:	c3                   	retq   
@@ -343,12 +343,12 @@ Disassembly of section .text:
 0000000000400f03 <phase_2>:
   400f03:	55                   	push   %rbp
   400f04:	53                   	push   %rbx
-  400f05:	48 83 ec 28          	sub    $0x28,%rsp
-  400f09:	48 89 e6             	mov    %rsp,%rsi
+  400f05:	48 83 ec 28          	sub    $0x28,%rsp                   ; 0x28字节的栈空间
+  400f09:	48 89 e6             	mov    %rsp,%rsi                    ; 第二个请求参数，为啥是栈顶地址
   400f0c:	e8 ee 07 00 00       	callq  4016ff <read_six_numbers>
   400f11:	83 3c 24 01          	cmpl   $0x1,(%rsp)
   400f15:	74 05                	je     400f1c <phase_2+0x19>
-  400f17:	e8 c1 07 00 00       	callq  4016dd <explode_bomb>
+  400f17:	e8 c1 07 00 00       	callq  4016dd <explode_bomb>        ; 1 != read_six_numbers(), bomb!!!
   400f1c:	48 89 e5             	mov    %rsp,%rbp
   400f1f:	bb 01 00 00 00       	mov    $0x1,%ebx
   400f24:	83 c3 01             	add    $0x1,%ebx
@@ -639,6 +639,16 @@ Disassembly of section .text:
   4012fd:	b8 00 00 00 00       	mov    $0x0,%eax
   401302:	c3                   	retq   
 
+ int string_length(char *p) {
+     if (*p == 0) return 0;
+     int len = 0;
+     do {
+         ++p;
+         ++len;
+     } while (*p != 0);
+     return len;
+ }
+
 0000000000401303 <strings_not_equal>:
   401303:	41 54                	push   %r12
   401305:	55                   	push   %rbp
@@ -646,16 +656,16 @@ Disassembly of section .text:
   401307:	48 89 fb             	mov    %rdi,%rbx
   40130a:	48 89 f5             	mov    %rsi,%rbp
   40130d:	e8 d3 ff ff ff       	callq  4012e5 <string_length>
-  401312:	41 89 c4             	mov    %eax,%r12d
+  401312:	41 89 c4             	mov    %eax,%r12d                       ; %r12d = string_length($rdi)
   401315:	48 89 ef             	mov    %rbp,%rdi
   401318:	e8 c8 ff ff ff       	callq  4012e5 <string_length>
   40131d:	ba 01 00 00 00       	mov    $0x1,%edx
   401322:	41 39 c4             	cmp    %eax,%r12d
-  401325:	75 3c                	jne    401363 <strings_not_equal+0x60>
-  401327:	0f b6 03             	movzbl (%rbx),%eax
-  40132a:	84 c0                	test   %al,%al
+  401325:	75 3c                	jne    401363 <strings_not_equal+0x60>  ; return 1
+  401327:	0f b6 03             	movzbl (%rbx),%eax                      ; movzbl(0扩展), movsbl(符号扩展)
+  40132a:	84 c0                	test   %al,%al                          ;
   40132c:	74 22                	je     401350 <strings_not_equal+0x4d>
-  40132e:	3a 45 00             	cmp    0x0(%rbp),%al
+  40132e:	3a 45 00             	cmp    0x0(%rbp),%al                    ; 0 != *lhs
   401331:	74 07                	je     40133a <strings_not_equal+0x37>
   401333:	eb 22                	jmp    401357 <strings_not_equal+0x54>
   401335:	3a 45 00             	cmp    0x0(%rbp),%al
@@ -667,7 +677,7 @@ Disassembly of section .text:
   401347:	75 ec                	jne    401335 <strings_not_equal+0x32>
   401349:	ba 00 00 00 00       	mov    $0x0,%edx
   40134e:	eb 13                	jmp    401363 <strings_not_equal+0x60>
-  401350:	ba 00 00 00 00       	mov    $0x0,%edx
+  401350:	ba 00 00 00 00       	mov    $0x0,%edx                        ; 0 == $rdi[0]
   401355:	eb 0c                	jmp    401363 <strings_not_equal+0x60>
   401357:	ba 01 00 00 00       	mov    $0x1,%edx
   40135c:	eb 05                	jmp    401363 <strings_not_equal+0x60>
@@ -677,6 +687,22 @@ Disassembly of section .text:
   401366:	5d                   	pop    %rbp
   401367:	41 5c                	pop    %r12
   401369:	c3                   	retq   
+
+ int strings_not_equal(char *lhs, char *rhs) {
+     int llen = string_length(lhs);     // 40130d:   e8 d3 ff ff ff          callq  4012e5 <string_length>
+     int rlen = string_length(rhs);     // 401318:   e8 c8 ff ff ff          callq  4012e5 <string_length>
+     int edx = 1;                       // 40131d:   ba 01 00 00 00          mov    $0x1,%edx
+     if (1 != llen) return 1;           // 401325:   75 3c                   jne    401363 <strings_not_equal+0x60>
+
+     if (0 != *lhs) {
+         if (rhs[0] != lhs[0]) {
+             edx = 1;                   // 401357:   ba 01 00 00 00          mov    $0x1,%edx
+             return edx;
+         } else {                       // 401331:   74 07                   je     40133a <strings_not_equal+0x37>
+         }
+     } else {                           // 40132c:   74 22                   je     401350 <strings_not_equal+0x4d>
+     }
+ }
 
 000000000040136a <open_clientfd>:
   40136a:	41 54                	push   %r12
@@ -929,20 +955,22 @@ Disassembly of section .text:
 
 00000000004016ff <read_six_numbers>:
   4016ff:	48 83 ec 08          	sub    $0x8,%rsp
-  401703:	48 89 f2             	mov    %rsi,%rdx
-  401706:	48 8d 4e 04          	lea    0x4(%rsi),%rcx
-  40170a:	48 8d 46 14          	lea    0x14(%rsi),%rax
+  401703:	48 89 f2             	mov    %rsi,%rdx                        ; 之前的栈指针，即 %rsp + 0x8
+  401706:	48 8d 4e 04          	lea    0x4(%rsi),%rcx                   ; 取 %rsp + 0x8 + 0x4 的地址
+  40170a:	48 8d 46 14          	lea    0x14(%rsi),%rax                  ; 取 %rsp + 0x8 + 0x14 的地址
   40170e:	50                   	push   %rax
-  40170f:	48 8d 46 10          	lea    0x10(%rsi),%rax
+  40170f:	48 8d 46 10          	lea    0x10(%rsi),%rax                  ; 取 %rsp + 0x8 + 0x10 的地址
   401713:	50                   	push   %rax
   401714:	4c 8d 4e 0c          	lea    0xc(%rsi),%r9
   401718:	4c 8d 46 08          	lea    0x8(%rsi),%r8
-  40171c:	be ae 1e 40 00       	mov    $0x401eae,%esi
+  40171c:	be ae 1e 40 00       	mov    $0x401eae,%esi                   ; sscanf的第二个参数
   401721:	b8 00 00 00 00       	mov    $0x0,%eax
-  401726:	e8 d5 f4 ff ff       	callq  400c00 <__isoc99_sscanf@plt>
+  401726:	e8 d5 f4 ff ff       	callq  400c00 <__isoc99_sscanf@plt>     ; sscanf these functions return 
+                                                                            ; the number of input items 
+                                                                            ; successfully matched and assigned
   40172b:	48 83 c4 10          	add    $0x10,%rsp
   40172f:	83 f8 05             	cmp    $0x5,%eax
-  401732:	7f 05                	jg     401739 <read_six_numbers+0x3a>
+  401732:	7f 05                	jg     401739 <read_six_numbers+0x3a>   ; 输入参数大于5个，输入合法，否则bomb!!!
   401734:	e8 a4 ff ff ff       	callq  4016dd <explode_bomb>
   401739:	48 83 c4 08          	add    $0x8,%rsp
   40173d:	c3                   	retq   
